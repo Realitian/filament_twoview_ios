@@ -36,44 +36,68 @@
 - (instancetype)initWithCoder:(NSCoder*)coder
 {
     if (self = [super initWithCoder:coder]) {
-#if FILAMENT_APP_USE_OPENGL
-        [self initializeGLLayer];
-#elif FILAMENT_APP_USE_METAL
         [self initializeMetalLayer];
-#endif
-//        self.contentScaleFactor = UIScreen.mainScreen.nativeScale;
+        self.contentScaleFactor = UIScreen.mainScreen.nativeScale;
     }
 
     return self;
 }
 
-
 - (void)initializeMetalLayer
 {
-#if METAL_AVAILABLE
-    CAMetalLayer* metalLayer = (CAMetalLayer*) self.layer;
-    metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
-
+//    CAMetalLayer* metalLayer = (CAMetalLayer*) self.layer;
+//    metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
 //    CGRect nativeBounds = [UIScreen mainScreen].nativeBounds;
-    metalLayer.drawableSize = CGSizeMake(UIScreen.mainScreen.nativeScale * self.bounds.size.width, UIScreen.mainScreen.nativeScale * self.bounds.size.height) ;//nativeBounds.size;
+//    metalLayer.drawableSize = nativeBounds.size;
+//    metalLayer.opaque = YES;
+//    metalLayer.framebufferOnly = NO;
     
-    metalLayer.opaque = YES;
-    metalLayer.framebufferOnly = NO;
-#endif
+    self.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
+    self.opaque = YES;
+    self.framebufferOnly = NO;
 }
 
-- (void)initializeGLLayer
-{
-    CAEAGLLayer* glLayer = (CAEAGLLayer*) self.layer;
-    glLayer.opaque = YES;
-}
-
-+ (Class) layerClass
-{
-#if FILAMENT_APP_USE_OPENGL
-    return [CAEAGLLayer class];
-#elif FILAMENT_APP_USE_METAL
-    return [CAMetalLayer class];
-#endif
-}
+//- (instancetype)initWithCoder:(NSCoder*)coder
+//{
+//    if (self = [super initWithCoder:coder]) {
+//#if FILAMENT_APP_USE_OPENGL
+//        [self initializeGLLayer];
+//#elif FILAMENT_APP_USE_METAL
+//        [self initializeMetalLayer];
+//#endif
+////        self.contentScaleFactor = UIScreen.mainScreen.nativeScale;
+//    }
+//
+//    return self;
+//}
+//
+//
+//- (void)initializeMetalLayer
+//{
+//#if METAL_AVAILABLE
+//    CAMetalLayer* metalLayer = (CAMetalLayer*) self.layer;
+//    metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
+//
+////    CGRect nativeBounds = [UIScreen mainScreen].nativeBounds;
+//    metalLayer.drawableSize = CGSizeMake(UIScreen.mainScreen.nativeScale * self.bounds.size.width, UIScreen.mainScreen.nativeScale * self.bounds.size.height) ;//nativeBounds.size;
+//
+//    metalLayer.opaque = YES;
+//    metalLayer.framebufferOnly = NO;
+//#endif
+//}
+//
+//- (void)initializeGLLayer
+//{
+//    CAEAGLLayer* glLayer = (CAEAGLLayer*) self.layer;
+//    glLayer.opaque = YES;
+//}
+//
+//+ (Class) layerClass
+//{
+//#if FILAMENT_APP_USE_OPENGL
+//    return [CAEAGLLayer class];
+//#elif FILAMENT_APP_USE_METAL
+//    return [CAMetalLayer class];
+//#endif
+//}
 @end

@@ -102,7 +102,7 @@ struct PlatformView{
     }
 };
 
-@interface ViewController (){
+@interface ViewController ()<MTKViewDelegate>{
     Engine* engine;
     Renderer* renderer;
     Scene* scene;
@@ -128,9 +128,12 @@ struct PlatformView{
     [self initializeFilament];
 
     // Call renderloop 60 times a second.
-    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(renderloop)];
-    displayLink.preferredFramesPerSecond = 60;
-    [displayLink addToRunLoop:NSRunLoop.currentRunLoop forMode:NSDefaultRunLoopMode];
+//    displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(renderloop)];
+//    displayLink.preferredFramesPerSecond = 60;
+//    [displayLink addToRunLoop:NSRunLoop.currentRunLoop forMode:NSDefaultRunLoopMode];
+    
+    self.view1.delegate = self;
+    self.view2.delegate = self;
 
     // Call didRotate when the device orientation changes.
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -153,6 +156,21 @@ struct PlatformView{
 - (BOOL)shouldAutorotate
 {
     return NO;
+}
+
+#pragma mark MTKViewDelegate
+
+- (void)drawInMTKView:(nonnull MTKView *)view {
+    [self update];
+    for(int i = 0 ; i < 2 ; i++){
+        if (self->view[i].iosView == view){
+            self->view[i].render(self->renderer);
+        }
+    }
+}
+
+- (void)mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
+    
 }
 
 

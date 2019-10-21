@@ -15,7 +15,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <MetalKit/MetalKit.h>
 
-@interface FilamentView : UIView
+@interface FilamentView : MTKView
 
 @end
