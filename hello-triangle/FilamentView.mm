@@ -41,7 +41,7 @@
 #elif FILAMENT_APP_USE_METAL
         [self initializeMetalLayer];
 #endif
-        self.contentScaleFactor = UIScreen.mainScreen.nativeScale;
+//        self.contentScaleFactor = UIScreen.mainScreen.nativeScale;
     }
 
     return self;
@@ -54,8 +54,8 @@
     CAMetalLayer* metalLayer = (CAMetalLayer*) self.layer;
     metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
 
-    CGRect nativeBounds = [UIScreen mainScreen].nativeBounds;
-    metalLayer.drawableSize = nativeBounds.size;
+//    CGRect nativeBounds = [UIScreen mainScreen].nativeBounds;
+    metalLayer.drawableSize = CGSizeMake(UIScreen.mainScreen.nativeScale * self.bounds.size.width, UIScreen.mainScreen.nativeScale * self.bounds.size.height) ;//nativeBounds.size;
     
     metalLayer.opaque = YES;
     metalLayer.framebufferOnly = NO;

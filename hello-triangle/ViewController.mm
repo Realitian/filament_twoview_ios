@@ -52,14 +52,61 @@ static constexpr uint8_t BAKED_COLOR_PACKAGE[] = {
 #include "bakedColor.inc"
 };
 
+struct PlatformView{
+    View* filaView;
+    Camera* camera;
+    SwapChain* swapChain;
+    FilamentView *iosView;
+    
+    void destroy(Engine* engine){
+        engine->destroy(filaView);
+        engine->destroy(camera);
+        engine->destroy(swapChain);
+    };
+    
+    void create(Engine* engine, FilamentView *iosView_){
+        iosView = iosView_;
+        swapChain = engine->createSwapChain((__bridge void*) iosView.layer);
+        camera = engine->createCamera();
+
+        filaView = engine->createView();
+        filaView->setPostProcessingEnabled(true);
+        filaView->setDepthPrepass(filament::View::DepthPrepass::DISABLED);
+        
+        filaView->setCamera(camera);
+        
+        filaView->setViewport(Viewport(0, 0, UIScreen.mainScreen.nativeScale * iosView.bounds.size.width, UIScreen.mainScreen.nativeScale * iosView.bounds.size.height));
+    };
+    
+    void setClearColor(math::float4 color){
+        filaView->setClearColor(color);
+    }
+    
+    void setScene(Scene* scene_){
+        filaView->setScene(scene_);
+    }
+    
+    void render(Renderer* renderer){
+        constexpr float ZOOM = 1.5f;
+        const uint32_t w = filaView->getViewport().width;
+        const uint32_t h = filaView->getViewport().height;
+        const float aspect = (float) w / h;
+        camera->setProjection(Camera::Projection::ORTHO,
+                              -aspect * ZOOM, aspect * ZOOM,
+                              -ZOOM, ZOOM, 0, 1);
+        
+        if (renderer->beginFrame(swapChain)) {
+            renderer->render(filaView);
+            renderer->endFrame();
+        }
+    }
+};
+
 @interface ViewController (){
     Engine* engine;
     Renderer* renderer;
     Scene* scene;
-    View* filaView;
-    Camera* camera;
-    SwapChain* swapChain1;
-    SwapChain* swapChain2;
+    PlatformView view[2];
     App app;
     CADisplayLink* displayLink;
 
@@ -98,10 +145,8 @@ static constexpr uint8_t BAKED_COLOR_PACKAGE[] = {
 {
     engine->destroy(renderer);
     engine->destroy(scene);
-    engine->destroy(filaView);
-    engine->destroy(camera);
-    engine->destroy(swapChain1);
-    engine->destroy(swapChain2);
+    view[0].destroy(engine);
+    view[1].destroy(engine);
     engine->destroy(&engine);
 }
 
@@ -115,17 +160,14 @@ static constexpr uint8_t BAKED_COLOR_PACKAGE[] = {
 {
     engine = Engine::create(filament::Engine::Backend::METAL);
 
-    swapChain1 = engine->createSwapChain((__bridge void*) self.view1.layer);
-    swapChain2 = engine->createSwapChain((__bridge void*) self.view2.layer);
+    view[0].create(engine, self.view1);
+    view[1].create(engine, self.view2);
+    
+    view[0].setClearColor({0.1, 0.125, 0.25, 1.0});
+    view[1].setClearColor({0.1, 0.25, 0.125, 1.0});
     
     renderer = engine->createRenderer();
     scene = engine->createScene();
-    camera = engine->createCamera();
-
-    filaView = engine->createView();
-    filaView->setClearColor({0.1, 0.125, 0.25, 1.0});
-    filaView->setPostProcessingEnabled(true);
-    filaView->setDepthPrepass(filament::View::DepthPrepass::DISABLED);
 
     app.vb = VertexBuffer::Builder()
         .vertexCount(3)
@@ -158,36 +200,20 @@ static constexpr uint8_t BAKED_COLOR_PACKAGE[] = {
         .castShadows(false)
         .build(*engine, app.renderable);
     scene->addEntity(app.renderable);
-
-    filaView->setScene(scene);
-    filaView->setCamera(camera);
-    CGRect nativeBounds = [UIScreen mainScreen].nativeBounds;
-    filaView->setViewport(Viewport(0, 0, nativeBounds.size.width, nativeBounds.size.height));
+    
+    view[0].setScene(scene);
+    view[1].setScene(scene);
 }
 
 - (void)renderloop
 {
     [self update];
-    if (self->renderer->beginFrame(self->swapChain1)) {
-        self->renderer->render(self->filaView);
-        self->renderer->endFrame();
-    }
-    
-    if (self->renderer->beginFrame(self->swapChain2)) {
-        self->renderer->render(self->filaView);
-        self->renderer->endFrame();
-    }
+    view[0].render(self->renderer);
+    view[1].render(self->renderer);
 }
 
 - (void)update
 {
-    constexpr float ZOOM = 1.5f;
-    const uint32_t w = filaView->getViewport().width;
-    const uint32_t h = filaView->getViewport().height;
-    const float aspect = (float) w / h;
-    camera->setProjection(Camera::Projection::ORTHO,
-                          -aspect * ZOOM, aspect * ZOOM,
-                          -ZOOM, ZOOM, 0, 1);
     auto& tcm = engine->getTransformManager();
 
     [self updateRotation];

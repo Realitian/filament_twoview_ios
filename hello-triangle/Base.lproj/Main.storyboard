@@ -17,22 +17,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofl-91-pvm" customClass="FilamentView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="267"/>
+                                <rect key="frame" x="56.5" y="0.0" width="262.5" height="233.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xag-5X-rj3" customClass="FilamentView">
-                                <rect key="frame" x="0.0" y="400" width="375" height="267"/>
+                                <rect key="frame" x="19" y="367" width="337.5" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Xag-5X-rj3" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="8Jd-mm-8pD"/>
+                            <constraint firstItem="Xag-5X-rj3" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.9" id="8Jd-mm-8pD"/>
                             <constraint firstItem="ofl-91-pvm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="B7S-ND-I2h"/>
-                            <constraint firstItem="ofl-91-pvm" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.4" id="Dig-vp-08A"/>
+                            <constraint firstItem="ofl-91-pvm" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.35" id="Dig-vp-08A"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Xag-5X-rj3" secondAttribute="bottom" id="RMi-BJ-QOn"/>
-                            <constraint firstItem="ofl-91-pvm" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="RpC-So-jcW"/>
-                            <constraint firstItem="Xag-5X-rj3" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.4" id="dx4-nb-IH9"/>
+                            <constraint firstItem="ofl-91-pvm" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.7" id="RpC-So-jcW"/>
+                            <constraint firstItem="Xag-5X-rj3" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.45" id="dx4-nb-IH9"/>
                             <constraint firstItem="ofl-91-pvm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gkc-4H-foO"/>
                             <constraint firstItem="Xag-5X-rj3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pAL-jq-vWF"/>
                         </constraints>

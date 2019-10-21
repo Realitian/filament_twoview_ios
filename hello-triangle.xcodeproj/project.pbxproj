@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1852F48F235D45AB00600BAD /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1852F48E235D45AB00600BAD /* MetalKit.framework */; };
 		25391681B7E1FAD8C35259C2FB43AA0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A2FAD3D476FDADF45F70F88D39B377 /* LaunchScreen.storyboard */; };
 		4831F43B77D0E8C437B64E0CD223DD61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FE9476D47ECFFEA65D7146A57C5807 /* AppDelegate.m */; };
 		CD70F3CC948993A3E182EEAE716413C0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E56C70616FF30C50DFA8238B177D825B /* main.m */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		0CDCD26337640C57D07E41ED006B9C6D /* FilamentView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FilamentView.mm; sourceTree = "<group>"; };
+		1852F48E235D45AB00600BAD /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		2620C967534D81CFFAB5D3FFC47A66A3 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		350DC65C7EE8D98D8FE181DC993DCB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3BB2247EC7FE4EFB2C3ED10A5046333B /* hello-triangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hello-triangle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,7 +34,26 @@
 		E56C70616FF30C50DFA8238B177D825B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		1852F48C235D45A100600BAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1852F48F235D45AB00600BAD /* MetalKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		1852F48D235D45AB00600BAD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1852F48E235D45AB00600BAD /* MetalKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		39FD47E0213E1FFE59609A06BA1585EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -47,6 +68,7 @@
 				C54ABC8D31D1863EF16253A04649C424 /* hello-triangle */,
 				8F55D652979868A470D724FA650F6B6B /* Materials */,
 				39FD47E0213E1FFE59609A06BA1585EA /* Products */,
+				1852F48D235D45AB00600BAD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +108,7 @@
 				668105208CE7DFC4DC55F8ECC0EABF67 /* Build Materials */,
 				7B94E1FEEC48280815A91021223A792F /* Sources */,
 				471869BF4E82B6ADC791072D1BE189ED /* Resources */,
+				1852F48C235D45A100600BAD /* Frameworks */,
 			);
 			buildRules = (
 			);
